@@ -2,6 +2,7 @@ import Image from "next/image";
 import { SiLionair } from "react-icons/si";
 import { RxDashboard } from "react-icons/rx";
 import { SlCalculator } from "react-icons/sl";
+import { BiMoviePlay } from "react-icons/bi";
 import { SidebarMenuItem } from "./SidebarMenuItem";
 
 const menuItems = [
@@ -16,6 +17,12 @@ const menuItems = [
     icon: <SlCalculator size={25} />,
     title: "Counter",
     subtitle: "Local State",
+  },
+  {
+    path: "/dashboard/movies",
+    icon: <BiMoviePlay size={25} />,
+    title: "Movies",
+    subtitle: "Static Generation",
   },
 ];
 
