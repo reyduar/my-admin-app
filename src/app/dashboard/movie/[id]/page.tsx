@@ -1,6 +1,7 @@
 import { MovieResponse } from "@/movies/interfaces";
 import { Metadata } from "next";
 import Image from "next/image";
+import { notFound } from "next/navigation";
 
 interface Props {
   params: { id: string };
@@ -9,30 +10,41 @@ interface Props {
 // Crear metadata dinamica para cada id de pelicula
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { id } = params;
-
-  const movie = await getMovie(id);
-
-  return {
-    title: movie.title,
-    description: movie.overview,
-  };
+  try {
+    const { id } = params;
+    const { title, overview } = await getMovie(id);
+    return {
+      title: title,
+      description: overview,
+    };
+  } catch (error) {
+    return {
+      title: "Movie not found",
+      description: "Movie not found",
+    };
+  }
 }
 
 const getMovie = async (id: string): Promise<MovieResponse> => {
-  const data = await fetch(
-    `https://api.themoviedb.org/3/movie/${id}?api_key=de6715f3b6983b1e06ae712ebf052970&language=en-US&include_adult=true`,
-    {
-      cache: "force-cache",
-      next: {
-        revalidate: 60 * 60 * 24 * 30, // 30 days por el force-cache
-      },
-    }
-  ).then((res) => res.json());
+  try {
+    const data = await fetch(
+      `https://api.themoviedb.org/3/movie/${id}?api_key=de6715f3b6983b1e06ae712ebf052970&language=en-US&include_adult=true`,
+      {
+        cache: "force-cache",
+        next: {
+          revalidate: 60 * 60 * 24 * 30, // 30 days por el force-cache
+        },
+      }
+    ).then((res) => res.json());
 
-  console.log(`Se cargo a ${data.title}`);
+    console.log(`Se cargo a ${data.title}`);
 
-  return data;
+    if (data.status_code === 34) notFound();
+
+    return data;
+  } catch (error) {
+    notFound();
+  }
 };
 
 export default async function MoviePage({ params }: Props) {
@@ -55,13 +67,15 @@ export default async function MoviePage({ params }: Props) {
               className="mb-5"
             />
 
-            <div className="flex flex-wrap">
-              {movie.genres.map((gen) => (
-                <p key={gen.id} className="mr-2 capitalize">
-                  {gen.name}
-                </p>
-              ))}
-            </div>
+            {movie.genres && (
+              <div className="flex flex-wrap">
+                {movie.genres.map((gen) => (
+                  <p key={gen.id} className="mr-2 capitalize">
+                    {gen.name}
+                  </p>
+                ))}
+              </div>
+            )}
             <div className="flex flex-wrap">{movie.overview}</div>
           </div>
         </div>
