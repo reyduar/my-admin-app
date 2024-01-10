@@ -25,6 +25,24 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 }
 
+//! Crear rutas estaticas para cada id de pelicula en build time
+export async function generateStaticParams() {
+  const static150movies = Array.from(
+    { length: 150 },
+    (_, i) => `${500 + i + 1}`
+  );
+  return static150movies.map((id) => ({ params: { id } }));
+  //  return [
+  //   {id: "550"},
+  //   {id: "551"},
+  //   {id: "552"},
+  //   {id: "553"},
+  //   {id: "554"},
+  //   {id: "555"},
+  //   {id: "556"},
+  //  ]
+}
+
 const getMovie = async (id: string): Promise<MovieResponse> => {
   try {
     const data = await fetch(
