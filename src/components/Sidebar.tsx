@@ -4,6 +4,7 @@ import { RxDashboard } from "react-icons/rx";
 import { SlCalculator } from "react-icons/sl";
 import { BiMoviePlay } from "react-icons/bi";
 import { SidebarMenuItem } from "./SidebarMenuItem";
+import { BsBox2HeartFill } from "react-icons/bs";
 
 const menuItems = [
   {
@@ -23,6 +24,12 @@ const menuItems = [
     icon: <BiMoviePlay size={25} />,
     title: "Movies",
     subtitle: "Static Generation",
+  },
+  {
+    path: "/dashboard/favorites",
+    icon: <BsBox2HeartFill size={25} />,
+    title: "Favorites",
+    subtitle: "Search Movies",
   },
 ];
 
