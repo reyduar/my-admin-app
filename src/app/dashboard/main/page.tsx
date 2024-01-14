@@ -1,16 +1,11 @@
-import { SimpleWidget } from "@/components";
+import { WidgetGrid } from "@/components";
 
 export default function MainPage() {
   return (
     <div className="text-black p-2">
       <h1 className="mt-2 text-3xl">Welcome to the My Admin App</h1>
       <span className="text-xl">Dashboard</span>
-      <div className="flex flex-wrap p-2">
-        <SimpleWidget />
-        <SimpleWidget />
-        <SimpleWidget />
-        <SimpleWidget />
-      </div>
+      <WidgetGrid />
     </div>
   );
 }
