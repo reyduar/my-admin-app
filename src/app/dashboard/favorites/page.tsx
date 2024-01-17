@@ -1,4 +1,4 @@
-import { MoviesGrid } from "@/movies/components";
+import { FavoriteMovies, MoviesGrid } from "@/movies/components";
 import { MoviesReponse, SimpleMovie } from "@/movies/interfaces";
 
 export const metadata = {
@@ -30,7 +30,7 @@ export default async function FavoritesPages() {
         <span className="text-5xl my-2">
           Favites Movies <small className="text-blue-500">Global State</small>
         </span>
-        <MoviesGrid movies={[]} />
+        <FavoriteMovies />
       </div>
 
       <div className="flex flex-col">
