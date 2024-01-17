@@ -14,7 +14,7 @@ interface Props {
 
 export const MovieCard = ({ movie }: Props) => {
   const { id, title, poster } = movie;
-  const isFavorite = useAppSelector((state) => !!state.favorite[id]);
+  const isFavorite = useAppSelector((state) => !!state.favorite.favorites[id]);
   const dispatch = useDispatch();
   const toggle = () => {
     dispatch(toggleFavorite(movie));

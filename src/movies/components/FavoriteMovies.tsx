@@ -7,17 +7,17 @@ import { IoHeartOutline } from "react-icons/io5";
 
 export const FavoriteMovies = () => {
   const favoriteMovies = useAppSelector((state) =>
-    Object.values(state.favorite)
+    Object.values(state.favorite.favorites)
   );
-  const [movies, setMovies] = useState(favoriteMovies);
-
-  useEffect(() => {
-    setMovies(favoriteMovies);
-  }, [favoriteMovies]);
+  //   const [movies] = useState(favoriteMovies);
 
   return (
     <div>
-      {movies.length > 0 ? <MoviesGrid movies={movies} /> : <NoFavorites />}
+      {favoriteMovies.length > 0 ? (
+        <MoviesGrid movies={favoriteMovies} />
+      ) : (
+        <NoFavorites />
+      )}
     </div>
   );
 };

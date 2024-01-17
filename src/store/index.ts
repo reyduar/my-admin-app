@@ -2,12 +2,15 @@ import { configureStore } from "@reduxjs/toolkit";
 import counterReducer from "./counter/counterSlice";
 import favoriteReducer from "./movies/favoriteSlice";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
+import { localstorageMiddleware } from "./middlewares/localstorage-middleware";
 
 export const store = configureStore({
   reducer: {
     counter: counterReducer,
     favorite: favoriteReducer,
   },
+  // middleware: (getDefaultMiddleware) =>
+  //   getDefaultMiddleware().concat(localstorageMiddleware),
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
